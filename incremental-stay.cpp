@@ -3,7 +3,7 @@
 using namespace std;
 
 // https://codeforces.com/problemset/problem/2151/C
-// time limit exceeded 😭
+// still time limit exceeded, have to explore "dynamic programming"
 
 int maxStayCalc(int sensorDetects, vector<int> seconds);
 
@@ -16,11 +16,9 @@ int main() {
     for (int i = 0 ; i < numberOfTestCases ; i++){
         int sensorDetects;
         cin >> sensorDetects;
-        vector<int> seconds;
+        vector<int> seconds(sensorDetects * 2);
         for (int j = 0 ; j < sensorDetects * 2 ; j++){
-            int num;
-            cin >> num;
-            seconds.push_back(num);
+            cin >> seconds[j];
         }
         maxStayCalc(sensorDetects, seconds);
         cout << endl;
@@ -29,25 +27,20 @@ int main() {
     return 0;
 }
 
-int maxStayCalc(int sensorDetects, vector<int> ogSeconds){
-
-    
+int maxStayCalc(int sensorDetects, vector<int> seconds){
     for (int k = 1 ; k <= sensorDetects ; k++){
-        vector<int> seconds = ogSeconds;
-        long long sum = 0;
-        if (k > 1){
-            for (int i = 1 ; i < k ; i++){
-                sum += seconds[seconds.size() - 1] - seconds[0];
-                seconds.erase(seconds.begin());
-                seconds.erase(seconds.end() - 1);
-                
+        long long stayingPeopleEntrySum = 0, stayingPeopleLeavingSum = 0, sum = 0;
+        for (int i = 1 ; i <= sensorDetects * 2 ; i++){
+            if (i <= k - 1){
+                stayingPeopleEntrySum += seconds[i - 1];
+            } else if (i > (sensorDetects * 2) - (k - 1)){
+                stayingPeopleLeavingSum += seconds[i - 1];
+            } else {
+                sum += seconds[i] - seconds[i - 1];
+                i++;
             }
         }
-        while (seconds.size() > 0) {
-            sum += seconds[1] - seconds[0];
-            seconds.erase(seconds.begin(), seconds.begin() + 2);
-
-        }
+        sum += stayingPeopleLeavingSum - stayingPeopleEntrySum;
         cout << sum << " ";
     }
     return 0;
