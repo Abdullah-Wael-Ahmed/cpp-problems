@@ -3,6 +3,24 @@ using namespace std;
 
 // https://codeforces.com/problemset/problem/1342/A
 
+/**
+ * !input: number of test cases
+ * !       firstNumber, secondNumber 
+ * !       aCost, bCost
+ * 
+ * *output: the cheapest cost to get both numbers to zero
+ * 
+ * ?process: 
+ * ? diffBetweenNums = absolute(Num1 - Num2) ;
+ * ? diffBetweenMaxZero = max(absolute(Num1), absolute(Num2)) ;
+ * ? if diffBetweenNums < diffBetweenMaxZero then // this means that the numbers are on the same side so we could use both a moves and b moves
+ * ? we check which is cheaper moving the higher number to the lower number with a moves then moving both to zero using b moves
+ * ? or using a moves only
+ * ? else
+ * ? numbers are on opposite sides so we can only use a moves
+ * ? end if
+ */
+
 int main(){
 
     int numberOfTestCases;
