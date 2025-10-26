@@ -7,17 +7,18 @@ class Stack
 public:
     int size;
     int top;
-    int arr[10];
+    int* arr;
 
     Stack(int x)
     {
         this->size = x;
         this->top = -1;
+        this->arr = new int[x];
     }
 
     void push(int x)
     {
-        if (top == 10 - 1)
+        if (top == size - 1)
         {
             cout << "Overflow";
         }
@@ -33,6 +34,7 @@ public:
         if (top == -1)
         {
             cout << "Underflow";
+            return -1;
         }
         else
         {
@@ -58,16 +60,16 @@ public:
 int main()
 {
 
-    Stack *x = new Stack(5);
+    Stack x(5);
 
-    x->push(5);
-    cout << x->topVal() << endl;
-    x->push(3);
-    cout << x->topVal() << endl;
-    x->pop();
-    cout << x->topVal() << endl;
-    x->pop();
-    cout << x->topVal() << endl;
+    x.push(5);
+    cout << x.topVal() << endl;
+    x.push(3);
+    cout << x.topVal() << endl;
+    x.pop();
+    cout << x.topVal() << endl;
+    x.pop();
+    cout << x.topVal() << endl;
 
     return 0;
 }
